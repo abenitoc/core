@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Script 1</title>
+	<meta http-equiv= "Content-Type" content= "text/html">
+	<link href= "practica3.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<h1>Objeto Window, Propiedades</h1>
+	
+
+	<!-- tabla con propiedades de screen -->
+	<table id="tabla">
+		<tr><th> Propiedad </th><th> Valor </th></tr>
+	</table> 
+
+
+	<script>
+		var winProps=prompt("Enter your Window object definition:","screen");
+
+		//Shoulda check code around here
+
+		var Twind=window.self;
+		var sSub=false;
+
+		for (var i = 0; i < winProps.length; i++) {
+			if(winProps[i]=="."){
+				var firstProp=winProps.substring(0,i);
+				var secondProp=winProps.substring(i+1,winProps.length+1);
+				sSub=true;
+			}
+
+		}
+
+		if(sSub){
+			var composition=Twind[firstProp][secondProp];
+		}
+		else
+			var composition=Twind[winProps];
+		
+
+		//var composition=Twind[winProps];
+		//Shoulda check code around here
+		var i, n , tabla = document.getElementById("tabla");
+
+		function isFunction(x) {
+			return Object.prototype.toString.call(x) == '[object Function]';
+		}
+
+		function isNumber(n) {
+			return !isNaN(parseFloat(n)) && isFinite(n);
+		}
+
+		function isCheckNumberOrString(x){
+			if(Object.prototype.toString.call(x) == '[object String]')return false;
+			else if(isNumber(x)) return false;
+			else return true;
+
+		}
+		
+		if (sSub) {
+			var res= firstProp.concat(".").concat(secondProp);
+			if (isFunction(composition)){
+				n="Función, no imprimible;"
+			}
+			else if (isCheckNumberOrString(composition)){
+				n="Objeto, no imprimible";
+			}
+			else
+			{
+				n=composition;
+			}
+
+			tabla.innerHTML+="<tr><td>"+res+"</td><td> = "+n+"</td></tr>";
+		}
+		else{
+
+		
+		for (i in composition){   //cada iteración genera una fila de la tabla
+
+			if (isFunction(composition[i])){
+				n="Función, no imprimible;"
+			}
+			else if (isCheckNumberOrString(composition[i])){
+				n="Objeto, no imprimible";
+			}
+			else
+			{
+				n=composition[i];
+			}
+
+			tabla.innerHTML+="<tr><td>"+i+"</td><td> = "+n+"</td></tr>";
+		 }
+		}
+
+	</script>
+</body>
+</html>
+

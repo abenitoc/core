@@ -1,0 +1,18 @@
+
+a:hover{ color: red;}
+.PurpleBox {float: right;
+			color:#660066;}
+.Titulos {float: left;}
+.Textaco {clear: both;
+		background-color: white;
+		;
+		border-radius:15px;
+		padding: 10px;
+		}
+#fondoRedondo{background-color: #a6adee;
+		border:2px ;
+		border-radius:25px;
+		padding: 20px;
+		}
+
+	

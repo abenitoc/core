@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html>
+
+<head><title>Cronómetro</title><meta charset="UTF-8">
+
+<meta http-equiv= "Content-Type" content= "text/html">
+	<link href= "practica4.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="zepto.min.js" > </script>
+	<script type="text/javascript">
+		$(function(){
+			localStorage.c = (localStorage.c || "0.0");
+			localStorage.list=(localStorage.list || "");
+
+			var t, cl = $("#crono"),ti=$("#time");
+			n=0;
+
+			function incr()     { localStorage.c = +localStorage.c + 0.1; }
+			function mostrar()  { cl.html((+localStorage.c).toFixed(1)); 
+								  ti.html(localStorage.list); //modification
+									};
+			function arrancar() { t=setInterval(function(){incr(); mostrar()}, 100);};
+			function parar()    { clearInterval(t);  t=undefined; };
+			function cambiar()  { 
+				if (!t) arrancar(); 
+				else {
+					n++;
+					var tim=parseFloat(localStorage.c).toFixed(1);
+					localStorage.list+='<br>'+n+")"+"     "+tim+'</br>';
+					 ti.html(localStorage.list);
+					parar(); 
+				}
+			};
+			
+			$("#cambiar").on('click', cambiar);
+			$("#inicializar").on('click', function(){ 
+				localStorage.c="0.0"; 
+				mostrar();
+				localStorage.list="";
+				ti.html(localStorage.list);	
+				n=0;			
+			});
+			$("#crono").tap(function(){
+				cambiar();
+			});
+
+			$("#crono").swipe(function(){
+				localStorage.c="0.0"; 
+				mostrar();
+				localStorage.list="";
+				ti.html(localStorage.list);	
+				n=0;			
+			});
+
+			mostrar();
+		});
+	</script>
+</head>
+<div id="divBody">
+<body>
+	<div id="divH2">
+	<h2>Cronómetro</h2>
+	</div>
+	
+	<div id="divCuenta">
+	<h3>
+	<span id="crono"> 0.0 </span> segundos 
+	</h3>
+	</div>
+
+
+	<div id="divBotones">
+	<button type="button" id="cambiar"> Arrancar/Parar </button>
+	<button type="button" id="inicializar">  inicializar </button>
+	</div>
+
+
+	<div id="time">
+	
+	</div>
+
+</body>
+</div>
+
+<footer> 
+	
+		Autores: Alberto Benito Campo (03940826Y) y Javier Biosca Vergara (53764843C)
+	
+</footer>
+</html>

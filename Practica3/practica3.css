@@ -1,0 +1,31 @@
+/* Generic Selectors */
+body {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 14px
+    color: #333333
+    background-color: #F9F9F9
+}
+
+p {
+    width: 80%;
+}
+
+li {
+    list-style-type: none;
+    line-height: 150%
+    list-style-image: url(../images/arrowSmall.gif);
+}
+
+h1 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000000;
+}
+
+h2 {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: bold;
+    color: #000000;
+    border-bottom: 1px solid #C6EC8C
+}

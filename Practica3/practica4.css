@@ -1,0 +1,59 @@
+
+html{background-image: url(fondoclaro.png)}
+#divH2{
+    color: #140056;
+    font-family: Verdana; 
+    font-size: 16px;
+    text-decoration: underline;;
+    margin:0 auto;
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+
+h3{
+    font-family: Courier;
+    color: black;
+    font-size: 15px;
+    padding-top: 160px;
+    text-align: center;
+}
+
+#divCuenta {
+      
+    position: relative;
+    font:;
+    height: 368px;
+    background-image: url(crono1.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    margin-bottom: 10px;
+}
+
+#divBody{
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 14px;
+    background-color: transparent;
+    
+    width: 50%;
+    margin: 0 auto;
+}
+
+#divBotones{
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+button:hover{color:red;}
+
+
+footer{
+    bottom: 0;
+    position: fixed;
+    font-size: 15px;
+    font-family: Courier, "Times New Roman", Times, serif;
+    clear: both;
+    text-align: center;
+}
