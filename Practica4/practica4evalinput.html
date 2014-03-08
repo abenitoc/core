@@ -4,18 +4,91 @@
 <head>
 <title>Ejercicio Entregable: Validación de Formularios</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<script type="text/javascript" src="jquery-1.11.0.min.js"></script>
+  <script>
+
+
+
+
+
+  $(function(){
+
+    var usernameRegex = new RegExp('^[a-zA-Z0-9_-]{3,12}$');  
+    var dniRegex = new RegExp('^[0-9]{8}[a-zA-Z]{1}$'); 
+    var emailRegex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i); //http://www.paulund.co.uk/regular-expression-to-validate-email-address
+    var countryRegex= new RegExp('^[a-zA-Zñáéíóú]{3,25}$');
+
+      $("#container :button").click(function() {
+      $("#container :text").val("");
+        });
+      
+    
+       $('#username').bind('keyup', function(){
+          var n = document.getElementById('username').value;
+      
+          if (usernameRegex.test(n)){
+              $("#outname").html("Nombre válido");
+          }
+          else{
+           $("#outname").html("El nombre introducido no es correcto");
+          }
+       });
+
+       $('#idn').bind('keyup', function(){
+          var n = document.getElementById('idn').value;
+          var cadena="TRWAGMYFPDXBNJZSQVHLCKET";
+          //http://www.desarrolloweb.com/articulos/1659.php
+          if (dniRegex.test(n)){
+              $("#outidn").html("DNI correcto");
+          }
+          else{
+           $("#outidn").html("No es un DNI válido");
+          }
+       });
+
+       $('#email').bind('keyup', function(){
+          var n = document.getElementById('email').value;
+      
+          if (emailRegex.test(n)){
+              $("#outemail").html("Email válido");
+          }
+          else{
+           $("#outemail").html("El email no es correcto");
+          }
+       });
+
+    $('#country').bind('keyup', function(){
+          var n = document.getElementById('country').value;
+      
+          if (countryRegex.test(n)){
+              $("#outcountry").html("País válido");
+          }
+          else{
+           $("#outcountry").html("El país no es correcto");
+          }
+       });
+
+    });
+
+
+
+</script>
+
 </head>
 <body>
-	<P>
+<div id="container">
+	<p>
     <LABEL for="nombre">Nombre de usuario: </LABEL>
-              <INPUT type="text" id="username"><BR>
+              <INPUT type="text" id="username"> <span id="outname"></span> <BR>
     <LABEL for="idn">DNI/NIE: </LABEL>
-              <INPUT type="text" id="idn"><BR>
+              <INPUT type="text" id="idn"><span id="outidn"></span><BR>
     <LABEL for="email">Email: </LABEL>
-              <INPUT type="text" id="email"><BR>
+              <INPUT type="text" id="email"><span id="outemail"></span><BR>
     <LABEL for="country">Estado: </LABEL>
-              <INPUT type="text" id="country"><BR>
-     <INPUT type="reset">
-    </P>
+              <INPUT type="text" id="country"><span id="outcountry"></span><BR>
+     <INPUT  type="button" value="Reset">
+     </p>
+  </div>
+
 </body>
 </html>
