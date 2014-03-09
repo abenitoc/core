@@ -15,38 +15,75 @@
 
     var usernameRegex = new RegExp('^[a-zA-Z0-9_-]{3,12}$');  
     var dniRegex = new RegExp('^[0-9]{8}[a-zA-Z]{1}$'); 
-    var emailRegex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i); //http://www.paulund.co.uk/regular-expression-to-validate-email-address
-    var countryRegex= new RegExp('^[a-zA-Zñáéíóú]{3,25}$');
+    var emailRegex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i); //http://www.paulund.co.uk/regular-expression-to-validate-email-addocument.formulario.dni.value=formulario.dni.value+" - "+letradress
+
+    function checkDNI (sDni){
+          sDni= sDni.toUpperCase();
+        if(sDni.length == 9){
+          var cadena="TRWAGMYFPDXBNJZSQVHLCKET";
+          var nemb= sDni.substr(0,sDni.length-1);
+          var numero= nemb % 23;
+          var letra = cadena.substring(numero, numero+1);
+          var let = sDni.substr(sDni.length-1, sDni.length);
+          if(letra != let){
+            return false;
+          }
+          else{
+            return true;
+          }
+
+        }
+        else{
+         return false;
+        }
+    } 
 
       $("#container :button").click(function() {
       $("#container :text").val("");
+      $("#container span").html("");
         });
       
-    
-       $('#username').bind('keyup', function(){
+      var wVal = 'blur';
+       $('#username').bind(wVal, function(){
           var n = document.getElementById('username').value;
       
           if (usernameRegex.test(n)){
               $("#outname").html("Nombre válido");
           }
+          else if (n.length > 12){
+            $("#outname").html("Nombre de usuario demasiado largo");
+          }
+          else if (n.length < 4){
+             $("#outname").html("Nombre de usuario debe tener al menos 3 caracteres");
+          }
+          else if (n == ""){
+            $("#outname").html("No puede ser un nombre vacío");
+          }
           else{
-           $("#outname").html("El nombre introducido no es correcto");
+           $("#outname").html("Sólo son válidos caracteres alfanuméricos del alfabeto inglés, '_' y '-'");
           }
        });
 
-       $('#idn').bind('keyup', function(){
+       $('#idn').bind(wVal, function(){
           var n = document.getElementById('idn').value;
-          var cadena="TRWAGMYFPDXBNJZSQVHLCKET";
+       
           //http://www.desarrolloweb.com/articulos/1659.php
-          if (dniRegex.test(n)){
+          if (dniRegex.test(n) && checkDNI(n)){
+            
               $("#outidn").html("DNI correcto");
+            
           }
+
+          else if(dniRegex.test(n) && !checkDNI(n)){
+            $("#outidn").html("La letra del DNI no es correcta");
+          }
+
           else{
            $("#outidn").html("No es un DNI válido");
           }
        });
 
-       $('#email').bind('keyup', function(){
+       $('#email').bind(wVal, function(){
           var n = document.getElementById('email').value;
       
           if (emailRegex.test(n)){
@@ -60,11 +97,14 @@
     $('#country').bind('keyup', function(){
           var n = document.getElementById('country').value;
       
-          if (countryRegex.test(n)){
-              $("#outcountry").html("País válido");
+          if (n != "" && n.split(" ").length < 26){
+              $("#outcountry").html("Estado válido " +"(" +(25 - n.split(" ").length) + ")");
+          }
+          else if(n == "") {
+            $("#outcountry").html("El estado no puede quedar vacío");
           }
           else{
-           $("#outcountry").html("El país no es correcto");
+            $("#outcountry").html("Ha excedido el límite de 25 palabras");
           }
        });
 
