@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Practica 2.4 Geolocalización</title>
+  <script type="text/javascript" src="zepto.min.js"></script>
+  <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+  <script type="text/javascript" src="gmaps.js"></script>
+  <link href= "mypath.css" rel="stylesheet" type="text/css">
+  <script type="text/javascript">
+    var map, lat, lng, lngOriginal, latOriginal;
+
+    $(function(){
+
+      function enlazarMarcador(e){
+
+       // muestra ruta entre marcas anteriores y actuales
+        map.drawRoute({
+          origin: [lat, lng],  // origen en coordenadas anteriores
+          // destino en coordenadas del click o toque actual
+          destination: [e.latLng.lat(), e.latLng.lng()],
+          travelMode: 'driving',
+          strokeColor: '#000000',
+          strokeOpacity: 0.6,
+          strokeWeight: 5
+        });
+
+        lat = e.latLng.lat();   // guarda coords para marca siguiente
+        lng = e.latLng.lng();
+
+        map.addMarker({ lat: lat, lng: lng});  // pone marcador en mapa
+      };
+
+      function geolocalizar(){
+        GMaps.geolocate({
+          success: function(position){
+            lat = position.coords.latitude;  // guarda coords en lat y lng
+            lng = position.coords.longitude;
+            latOriginal=position.coords.latitude; 
+            lngOriginal=position.coords.longitude;
+
+            map = new GMaps({  // muestra mapa centrado en coords [lat, lng]
+              el: '#map',
+              lat: lat,
+              lng: lng,
+              click: enlazarMarcador,
+              tap: enlazarMarcador
+            });
+            map.addMarker({ lat: lat, lng: lng});  // marcador en [lat, lng]
+          },
+          error: function(error) { alert('Geolocalización falla: '+error.message); },
+          not_supported: function(){ alert("Su navegador no soporta geolocalización"); },
+        });
+      };
+
+
+      function compactar(){
+        //Creamos mapa nuevo con el centro original
+        map = new GMaps({
+          el: '#map',
+          lat: latOriginal,
+          lng: lngOriginal,
+          click: enlazarMarcador,
+          tap: enlazarMarcador,
+        });
+        map.addMarker({lat: latOriginal, lng: lngOriginal});
+        map.addMarker({lat: lat, lng: lng})
+        
+        map.drawRoute({
+          origin: [latOriginal, lngOriginal],  // origen en coordenadas anteriores
+          // destino en coordenadas del click o toque actual
+          destination: [lat, lng], //Usa el ultimo valor que tuviese
+          travelMode: 'driving',
+          strokeColor: 'blue' ,
+          strokeOpacity: 0.6,
+          strokeWeight: 5
+        });
+
+
+      }
+
+      $("#compactar").click(function(){
+      alert("Ruta compactada en azul");
+      //'latOriginal: '+latOriginal+'. lngOriginal: '+lngOriginal+', lat: '+ lat + ', lng: '+lng
+      compactar();
+    });
+
+
+      function borrado() {
+        map.removeMarkers();
+        map.cleanRoute();
+        lat = latOriginal;  // guarda coords en lat y lng
+        lng = lngOriginal;
+        map.addMarker({ lat: lat, lng: lng}); 
+      }
+
+      $("#borrar").click(function(){
+      confirm("Se borrarán todos los marcadores y rutas");
+      borrado();
+    });
+
+      function compactarEficiente(){
+        map.removeMarkers();
+        map.cleanRoute();
+        //Borramos todo lo que hubiese pintado
+        map.addMarker({lat: latOriginal, lng: lngOriginal});
+        map.addMarker({lat: lat, lng: lng})
+        
+        map.drawRoute({
+          origin: [latOriginal, lngOriginal],  // origen en coordenadas anteriores
+          // destino en coordenadas del click o toque actual
+          destination: [lat, lng], //Usa el ultimo valor que tuviese
+          travelMode: 'driving',
+          strokeColor: 'blue' ,
+          strokeOpacity: 0.6,
+          strokeWeight: 5
+        });
+
+      }
+
+      $("#compactarEfi").click(function(){
+      alert("Ruta compactada en azul");
+      compactarEficiente();
+    });
+
+      geolocalizar();
+    });
+  </script>
+</head>
+
+
+
+
+
+
+<body>
+  <h1><u>Geolocalización</u></h1>
+  <nav>
+    
+      <button id="compactar" type="button">Compactar Ruta</button>
+      <button id="compactarEfi"type="button">Compactar Eficiente</button>
+      <button id="borrar"type="button">Borrar Todo</button>
+    
+  </nav>
+  
+  <!--<div id="boton" ><button type="button">Compactar</button> </div>-->
+
+
+  <div id="map">
+   Cargando Mapas
+  </div>
+</body>
+<footer> 
+  
+    Autores: Alberto Benito Campo (03940826Y) y Javier Biosca Vergara (53764843C)
+  
+</footer>
+</html>

@@ -1,0 +1,55 @@
+html{
+  background-image: url(boussole.png);
+}
+body{
+  font-family: brush script MT, 'Droid Sans', 'Helvetica', Arial, sans-serif;
+}
+h1{
+  text-align: center;
+  font-family: brush script MT;
+  font-size: 40px;
+}
+
+#latlng{
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute; /* posiciÃ³n absoluta a navegador */
+  top: 0;             /* ajusta a borde de navegador */
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+
+#map{
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: absolute; /* posiciÃ³n absoluta a navegador */
+  top: 140px;      /* 50px debajo de borde de navegador */
+  left: 50px;        /* ajusta a borde de navegador */
+  right: 50px;
+  bottom: 50px;
+  text-align: center;
+  
+ /* background: #593E1A;  marrón si no hay mapa */
+  background: linear-gradient(to bottom right, #665847 , #593E1A);
+  border-radius: 25px;
+  border-style: ridge;
+  border-color: #C0c0c0;
+  border-width: 5px;
+}
+
+nav{
+  text-align: center;
+}
+
+footer{
+  background-color: rgba(254,240,201, 0.7);
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 10px;
+  bottom:5px;
+  position: fixed;
+  font-size: 28px;
+}
