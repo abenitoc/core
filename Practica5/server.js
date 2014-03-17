@@ -12,8 +12,7 @@ var server = net.createServer(function(socket) {
  //Indicar el final de cabecera (línea en blanco)
  socket.write('\n');
  //Añadir el cuerpo del mensaje
- socket.write("<html><head></head><body><h1>Ola ke ase!
-</h1></body></html>");
+ socket.write("<html><head></head><body><h1>Ola ke ase!</h1></body></html>");
  socket.end();
  });
 });
