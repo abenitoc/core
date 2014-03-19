@@ -13,15 +13,15 @@
     var usernameRegex = new RegExp('^[a-zA-Z0-9_-]{3,12}$');  
     var dniRegex = new RegExp('^[0-9]{8}[a-zA-Z]{1}$'); 
     var emailRegex = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i); //http://www.paulund.co.uk/regular-expression-to-validate-email-addocument.formulario.dni.value=formulario.dni.value+" - "+letradress
-
+    //var emailRegex = new RegExp('^([a-zA-Z0-9_-].[a-zA-Z0-9_-]) | [a-zA-Z0-9_-]) @  ');
     function checkDNI (sDni){
           sDni= sDni.toUpperCase();
         if(sDni.length == 9){
           var cadena="TRWAGMYFPDXBNJZSQVHLCKET";
-          var nemb= sDni.substr(0,sDni.length-1);
+          var nemb= sDni.substr(0,sDni.length-1); //quitar letra
           var numero= nemb % 23;
-          var letra = cadena.substring(numero, numero+1);
-          var let = sDni.substr(sDni.length-1, sDni.length);
+          var letra = cadena.substring(numero, numero+1);// letra calculada
+          var let = sDni.substr(sDni.length-1, sDni.length); //letra pasada
           if(letra != let){
             return false;
           }
@@ -30,23 +30,32 @@
           }
 
         }
-        else{
+        else{ //longitud de dni mal
          return false;
         }
     } 
-
+//Haciendo click en cualquier botón de container
       $("#container :button").click(function() {
-      $("#container :text").val("");
-      $("#container span").html("");
+      $("#container :text").val(""); //todos los textos a blanco
+      //val es el valor del texto
+      $("#container span").html(""); //todos los spans a blanco (que salen a la dcha luego) 
         });
       
       var wVal = 'blur';
-       $('#username').bind(wVal, function(){
-          var n = document.getElementById('username').value;
+
+      //bind ejecuta un evento
+       $('#username').bind(wVal, function(){ //a username le bindeamos el evento wVal que es blur y cuando pase blur, hacemos lo que ponga en la function
+        
+        /*Para hacerlo directamente con blur sería:
+        $('#username').blur(function(){...}
+        */
+          var n = document.getElementById('username').value;//devuelve el valor de lo que hay dentro de username
       
-          if (usernameRegex.test(n)){
+          if (usernameRegex.test(n)){ //matching con un regex dado
               $("#outname").html("Nombre válido");
           }
+
+          //clasifica errores posibles
           else if (n.length > 12){
             $("#outname").html("Nombre de usuario demasiado largo");
           }
@@ -65,7 +74,7 @@
           var n = document.getElementById('idn').value;
        
           //http://www.desarrolloweb.com/articulos/1659.php
-          if (dniRegex.test(n) && checkDNI(n)){
+          if (dniRegex.test(n) && checkDNI(n)){ //Comprobamos que sea un DNI y que 
             
               $("#outidn").html("DNI correcto");
             
@@ -92,9 +101,11 @@
        });
 
     $('#country').bind('keyup', function(){
+      //cada vez que levantes tecla para que vaya actualizando en tiempo real el número de palabras que quedan
           var n = document.getElementById('country').value;
       
-          if (n != "" && n.split(" ").length < 26){
+          if (n != "" && n.split(" ").length < 26){//campo no vacío 
+            //n.split(" ") guarda en un array cada string que esté separado por un " "
               $("#outcountry").html("Estado válido " +"(" +(25 - n.split(" ").length) + ")");
           }
           else if(n == "") {
@@ -124,8 +135,8 @@
               <INPUT type="text" id="email"><span id="outemail"></span><BR>
     <LABEL for="country">Estado: </LABEL>
               <INPUT type="text" id="country"><span id="outcountry"></span><BR>
-     <INPUT  type="button" value="Reset">
-     </p>
+    <INPUT  type="button" value="Reset">
+    </p>
   </div>
 
 </body>

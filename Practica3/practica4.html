@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 
@@ -7,22 +6,29 @@
 <meta http-equiv= "Content-Type" content= "text/html">
 	<link href= "practica4.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="zepto.min.js" > </script>
+	<script type="text/javascript" src="jquery-2.min.js" > </script>
+	<script type="text/javascript" src="jquery.mobile-1.4.2.min.js" > </script>
 	<script type="text/javascript">
 		$(function(){
-			localStorage.c = (localStorage.c || "0.0");
+			//inicializa storages de los strings
+			localStorage.c = (localStorage.c || "0.0"); //si no había algo guardado por los cookies pone 0.0
 			localStorage.list=(localStorage.list || "");
 
 			var t, cl = $("#crono"),ti=$("#time");
 			n=0;
 
 			function incr()     { localStorage.c = +localStorage.c + 0.1; }
+
 			function mostrar()  { cl.html((+localStorage.c).toFixed(1)); 
 								  ti.html(localStorage.list); //modification
 									};
+
 			function arrancar() { t=setInterval(function(){incr(); mostrar()}, 100);};
+
 			function parar()    { clearInterval(t);  t=undefined; };
+
 			function cambiar()  { 
-				if (!t) arrancar(); 
+				if (!t) arrancar(); //si estaba parado el contador
 				else {
 					n++;
 					var tim=parseFloat(localStorage.c).toFixed(1);
@@ -34,22 +40,26 @@
 			
 			$("#cambiar").on('click', cambiar);
 			$("#inicializar").on('click', function(){ 
+				if(t===undefined){
 				localStorage.c="0.0"; 
 				mostrar();
 				localStorage.list="";
 				ti.html(localStorage.list);	
-				n=0;			
+				n=0;
+				}			
 			});
-			$("#crono").tap(function(){
+			$("#divCuenta").on("tap",function(){
 				cambiar();
 			});
 
-			$("#crono").swipe(function(){
+			$("#divCuenta").on("swipe",function(){
+				if(t===undefined){
 				localStorage.c="0.0"; 
 				mostrar();
 				localStorage.list="";
 				ti.html(localStorage.list);	
-				n=0;			
+				n=0;
+				}			
 			});
 
 			mostrar();

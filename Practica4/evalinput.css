@@ -1,15 +1,29 @@
-
+html{
+	background-image: url(paper.png);
+}
 
 body{
   font-family: brush script MT, 'Droid Sans', 'Helvetica', Arial, sans-serif;
 }
 
 h1{
-  text-align: left;
-  font-size: 30px;
+  padding-top: 30px;
+  text-align: center;
+  font-size: 45px;
+  
 }
 
 #container{
-	text-align: left;
-	font-size: 20px;
+	padding-top: 25px;
+	text-align: center;
+	font-size: 25px;
+}
+#country{
+	resize:horizontal;
+}
+
+footer{
+	position: absolute;
+	bottom: 5px;
+	font-size: 25px;
 }

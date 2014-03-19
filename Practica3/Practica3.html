@@ -21,38 +21,39 @@
 
 		//Shoulda check code around here
 
-		var Twind=window.self;
+		var Twind=window.self; //invocar al propio objeto window
 		var sSub=false;
 
 		for (var i = 0; i < winProps.length; i++) {
-			if(winProps[i]=="."){
-				var firstProp=winProps.substring(0,i);
-				var secondProp=winProps.substring(i+1,winProps.length+1);
-				sSub=true;
+			if(winProps[i]=="."){ //Si es algo1.algo2 se separa en dos strings
+				var firstProp=winProps.substring(0,i);//se queda con algo1
+				var secondProp=winProps.substring(i+1,winProps.length+1); //se queda con algo2
+				sSub=true; //flag de que es algo1.algo2
 			}
 
 		}
 
-		if(sSub){
-			var composition=Twind[firstProp][secondProp];
+		if(sSub){ // si es algo1.algo2
+			var composition=Twind[firstProp][secondProp]; //subobjeto tipo window con la propiedad pasadas por parámetro
 		}
+
 		else
 			var composition=Twind[winProps];
 		
 
 		//var composition=Twind[winProps];
 		//Shoulda check code around here
-		var i, n , tabla = document.getElementById("tabla");
+		var i, n , tabla = document.getElementById("tabla");//tabla string que pone "tabla"
 
 		function isFunction(x) {
 			return Object.prototype.toString.call(x) == '[object Function]';
 		}
 
 		function isNumber(n) {
-			return !isNaN(parseFloat(n)) && isFinite(n);
+			return !isNaN(parseFloat(n)) && isFinite(n); //pasamos n como string forzándolo a ser float 
 		}
 
-		function isCheckNumberOrString(x){
+		function isNCheckNumberOrString(x){
 			if(Object.prototype.toString.call(x) == '[object String]')return false;
 			else if(isNumber(x)) return false;
 			else return true;
@@ -64,7 +65,7 @@
 			if (isFunction(composition)){
 				n="Función, no imprimible;"
 			}
-			else if (isCheckNumberOrString(composition)){
+			else if (isNCheckNumberOrString(composition)){
 				n="Objeto, no imprimible";
 			}
 			else
@@ -82,7 +83,7 @@
 			if (isFunction(composition[i])){
 				n="Función, no imprimible;"
 			}
-			else if (isCheckNumberOrString(composition[i])){
+			else if (isNCheckNumberOrString(composition[i])){
 				n="Objeto, no imprimible";
 			}
 			else
