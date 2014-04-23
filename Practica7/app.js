@@ -28,6 +28,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
+app.get('/',   routes.index);
 app.get('/index',   routes.index);
 app.get('/show',    routes.show);
 
@@ -38,7 +39,12 @@ app.get('/select',  routes.select);
 app.get('/edit',    routes.edit);
 app.put('/update',  routes.update);
 
+app.get('/remove', routes.remove);
+app.get('/cdelete', routes.cdelete);
+app.put('/kill', routes.kill);
+
 app.get('/users', users.list);
+
 
 /// catch 404 and forwarding to error handler
 app.use(function(req, res, next) {

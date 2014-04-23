@@ -62,3 +62,28 @@ exports.update = function(req, res){
       };
   });
 };
+
+exports.remove = function(req,res){
+ models.Quiz.findAll().success(function(quizes) {
+    res.render('remove.ejs', { quizes: quizes});
+  })
+};
+
+exports.cdelete = function (req,res){
+  models.Quiz
+    .find({where: {pregunta: req.query.pregunta}})
+    .success(function(quiz) {
+      
+      res.render('cdelete.ejs', {
+        pregunta:quiz.pregunta, id: quiz.id
+      });
+    })
+};
+
+exports.kill = function(req, res){
+  break;
+  models.Quiz.destroy(models.Quiz
+    .find(+req.body.id));
+  res.render('index.ejs');
+
+};
