@@ -41,7 +41,7 @@ app.put('/update',  routes.update);
 
 app.get('/remove', routes.remove);
 app.get('/cdelete', routes.cdelete);
-app.put('/kill', routes.kill);
+app.post('/kill', routes.kill);
 
 app.get('/users', users.list);
 

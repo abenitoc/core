@@ -3,35 +3,32 @@
 	
     
 
-	function post_to_url(path, params, method) {
-        method = method || "post";
+function post_to_url(path, params, method) {
+    method = method || "post";
 
-        var form = document.createElement("form");
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
 
-        //Move the submit function to another variable
-        //so that it doesn't get overwritten.
-        form._submit_function_ = form.submit;
-
-        form.setAttribute("method", method);
-        form.setAttribute("action", path);
-
-        for(var key in params) {
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
             var hiddenField = document.createElement("input");
             hiddenField.setAttribute("type", "hidden");
             hiddenField.setAttribute("name", key);
             hiddenField.setAttribute("value", params[key]);
 
             form.appendChild(hiddenField);
-        }
+         }
+    }
 
-        document.body.appendChild(form);
-        form._submit_function_(); //Call the renamed function.
-    }	
+    document.body.appendChild(form);
+    form.submit();
+}
 
     function func(){
     n = confirm( "Estás seguro que desea eliminar <%= pregunta %>" );
     if (n){
-   		post_to_url("/kill", { id: "<%= id %>" ,submit: "submit" } );
+   		post_to_url("/kill", { pregunta: "<%= pregunta %>"} );
     }
 
     else
