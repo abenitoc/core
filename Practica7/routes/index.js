@@ -81,9 +81,7 @@ exports.cdelete = function (req,res){
 };
 
 exports.kill = function(req, res){
-  models.Quiz.find({where :{pregunta: req.body.pregunta}}).success(function(quiz){
-    quiz.destroy().success(function(){
-      res.redirect("/index");
+  models.Quiz.find({where :{pregunta: req.body.pregunta}}).success(function(quiz){quiz.destroy().success(function(){res.redirect("/index");
     }).error(function(err){next(err);})
   });
 

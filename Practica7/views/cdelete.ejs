@@ -25,21 +25,18 @@ function post_to_url(path, params, method) {
     form.submit();
 }
 
-    function func(){
+function func(){
     n = confirm( "Estás seguro que desea eliminar <%= pregunta %>" );
     if (n){
-   		post_to_url("/kill", { pregunta: "<%= pregunta %>"} );
+		post_to_url("/kill", { pregunta: "<%= pregunta %>"} );
     }
 
-    else
-    {
- 	 window.location.href ="/index"
+    else{
+	 window.location.href ="/index"
     }
-    }
+}
 
-    
-
-    func();
+func();
 
 
 
