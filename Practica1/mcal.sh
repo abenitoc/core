@@ -1,7 +1,5 @@
 #!/bin/sh
 ## Script de mcal       
-## Alberto Benito Campo 03940826Y
-## Javier Biosca Vergara 53764843C
 
 
 case $# in 
